@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget\Plugin\Router;
+namespace SprykerDemo\Yves\MerchantReviewWidget\Plugin\Router;
 
 use Spryker\Yves\Router\Plugin\RouteProvider\AbstractRouteProviderPlugin;
 use Spryker\Yves\Router\Route\RouteCollection;
@@ -13,7 +13,7 @@ use Spryker\Yves\Router\Route\RouteCollection;
 class MerchantReviewWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
 {
     /**
-     * @deprecated Use {@link \Pyz\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_INDEX} instead.
+     * @deprecated Use {@link \SprykerDemo\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_INDEX} instead.
      *
      * @var string
      */
@@ -25,7 +25,7 @@ class MerchantReviewWidgetRouteProviderPlugin extends AbstractRouteProviderPlugi
     public const ROUTE_NAME_MERCHANT_REVIEW_INDEX = 'merchant-review/index';
 
     /**
-     * @deprecated Use {@link \Pyz\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_CREATE} instead.
+     * @deprecated Use {@link \SprykerDemo\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_CREATE} instead.
      *
      * @var string
      */

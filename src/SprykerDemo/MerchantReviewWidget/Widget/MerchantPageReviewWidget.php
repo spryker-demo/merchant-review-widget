@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget\Widget;
+namespace SprykerDemo\Yves\MerchantReviewWidget\Widget;
 
 use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\MerchantReviewStorageTransfer;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
  */
 class MerchantPageReviewWidget extends AbstractWidget
 {

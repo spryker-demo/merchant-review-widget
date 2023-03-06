@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget\Controller;
+namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
 
 use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
@@ -14,7 +14,7 @@ use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
  */
 class IndexController extends AbstractController
 {

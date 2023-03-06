@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget\Form;
+namespace SprykerDemo\Yves\MerchantReviewWidget\Form;
 
 use Generated\Shared\Transfer\MerchantReviewRequestTransfer;
 use Spryker\Yves\Kernel\Form\AbstractType;
@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
  */
 class MerchantReviewForm extends AbstractType
 {

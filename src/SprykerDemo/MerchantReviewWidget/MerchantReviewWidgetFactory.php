@@ -5,18 +5,18 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget;
+namespace SprykerDemo\Yves\MerchantReviewWidget;
 
-use Pyz\Client\MerchantReview\MerchantReviewClientInterface;
-use Pyz\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
-use Pyz\Yves\MerchantReview\MerchantReviewFactory as SprykerMerchantReviewFactory;
-use Pyz\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
-use Pyz\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
+use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
+use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
+use SprykerDemo\Yves\MerchantReview\MerchantReviewFactory as SprykerMerchantReviewFactory;
+use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
+use SprykerDemo\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
 use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Shared\Application\ApplicationConstants;
 
 /**
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
  */
 class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
 {
@@ -29,7 +29,7 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
     }
 
     /**
-     * @return \Pyz\Client\MerchantReview\MerchantReviewClientInterface
+     * @return \SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface
      */
     public function getMerchantReviewClient(): MerchantReviewClientInterface
     {
@@ -37,7 +37,7 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
     }
 
     /**
-     * @return \Pyz\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface
+     * @return \SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface
      */
     public function getMerchantReviewStorageClient(): MerchantReviewStorageClientInterface
     {
@@ -70,7 +70,7 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
     }
 
     /**
-     * @return \Pyz\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider
+     * @return \SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider
      */
     public function createMerchantReviewFormDataProvider()
     {

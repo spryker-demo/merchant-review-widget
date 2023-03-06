@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Yves\MerchantReviewWidget;
+namespace SprykerDemo\Yves\MerchantReviewWidget;
 
 use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
@@ -13,7 +13,7 @@ use Spryker\Yves\Kernel\Container;
 use Spryker\Yves\Kernel\Plugin\Pimple;
 
 /**
- * @method \Pyz\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
+ * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
  */
 class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyProvider
 {
