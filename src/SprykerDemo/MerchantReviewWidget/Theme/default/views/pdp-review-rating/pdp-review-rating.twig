@@ -1,0 +1,23 @@
+{% extends template('widget') %}
+
+{# @deprecated property "idProductAbstract" is deprecated #}
+{% define data = {
+    idProductAbstract: _widget.idProductAbstract,
+    value: _widget.productReviewStorageTransfer.averageRating | default(0),
+    maxValue: _widget.maximumRating,
+} %}
+
+{% block body %}
+    {% include molecule('merchant-rating-selector', 'MerchantReviewWidget') with {
+        modifiers: ['merchant-page'],
+        data: {
+            value: _widget.merchantReviewStorageTransfer.averageRating | default(0),
+            maxValue: _widget.maximumRating,
+            reviewCount: _widget.merchantReviewStorageTransfer.reviewCount | default,
+        },
+        attributes: {
+            readonly: true,
+        },
+    } only %}
+{% endblock %}
+

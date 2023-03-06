@@ -1,0 +1,26 @@
+{% extends template('widget') %}
+
+{% define data = {
+    value: _widget.productReviewStorageTransfer.averageRating | default(0),
+    maxValue: _widget.maximumRating,
+    parentJsName: '',
+    reviewCount: _widget.merchantReviewStorageTransfer.reviewCount | default,
+    parentJsName: '',
+} %}
+
+{% block body %}
+    {% include molecule('merchant-rating-selector', 'MerchantReviewWidget') with {
+        modifiers: ['expand'],
+        data: {
+            value: data.value,
+            maxValue: data.maxValue,
+            useHalfSteps: true,
+            reviewCount: data.reviewCount,
+            parentJsName: data.parentJsName,
+        },
+        attributes: {
+            readonly: true,
+        },
+    } only %}
+{% endblock %}
+

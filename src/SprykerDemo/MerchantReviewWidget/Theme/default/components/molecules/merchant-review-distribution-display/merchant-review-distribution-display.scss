@@ -1,0 +1,49 @@
+@mixin merchant-review-widget-merchant-review-distribution-display($name: '.merchant-review-distribution-display') {
+    #{$name} {
+        &__summary-stars {
+            @include helper-font-size(8);
+            color: $setting-color-gray-3;
+            padding-right: 21px;
+            padding-bottom: 6px;
+            white-space: nowrap;
+        }
+
+        &__progress {
+            width: rem(110);
+            height: 6px;
+            border-radius: $setting-border-radius-1;
+            background-color: $setting-color-alpha-3;
+            position: relative;
+            overflow: hidden;
+
+            @include helper-breakpoint-media-min($md) {
+                width: rem(215);
+            }
+
+            @include helper-breakpoint-media-min($lg) {
+                width: rem(100);
+            }
+
+            @include helper-breakpoint-media-min($xl) {
+                width: rem(140);
+            }
+        }
+
+        &__progress-active {
+            width: 100%;
+            height: rem(6);
+            border-radius: $setting-border-radius-1;
+            background-color: $setting-color-yellow-1;
+            position: absolute;
+        }
+
+        &__rating-review {
+            @include helper-font-size(7);
+            color: $setting-color-gray-3;
+            padding-left: 15px;
+            padding-bottom: 6px;
+        }
+    }
+}
+
+@include merchant-review-widget-merchant-review-distribution-display;

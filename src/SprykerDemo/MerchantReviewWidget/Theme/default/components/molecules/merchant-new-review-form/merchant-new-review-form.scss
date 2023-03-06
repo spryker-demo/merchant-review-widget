@@ -1,0 +1,39 @@
+@mixin merchant-review-widget-merchant-new-review-form($name: '.merchant-new-review-form') {
+    #{$name} {
+        &__actions {
+            display: flex;
+            flex-direction: column-reverse;
+            width: 100%;
+
+            @include helper-breakpoint-media-min($md) {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        &__actions-buttons {
+            display: flex;
+            flex-flow: column-reverse;
+            width: 100%;
+
+            @include helper-breakpoint-media-min($md) {
+                flex-flow: row-reverse nowrap;
+                width: auto;
+            }
+        }
+
+        &__action-button {
+            width: auto;
+        }
+
+        &__required-fields {
+            @include helper-font-size(7);
+            color: $setting-color-gray-2;
+            flex-shrink: 0;
+            text-align: left;
+        }
+    }
+}
+
+@include merchant-review-widget-merchant-new-review-form;

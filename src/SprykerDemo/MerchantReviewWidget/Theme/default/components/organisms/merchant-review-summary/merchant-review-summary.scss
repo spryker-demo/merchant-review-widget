@@ -1,0 +1,47 @@
+@mixin merchant-review-widget-merchant-review-summary($name: '.merchant-review-summary') {
+    #{$name} {
+        margin-bottom: rem(45);
+
+        @include helper-breakpoint-media-min($lg) {
+            margin-bottom: rem(90);
+        }
+
+        &__title {
+            @include helper-font-weight(medium);
+            margin-bottom: rem(24);
+            line-height: normal;
+            color: $setting-color-gray-5;
+        }
+
+        &__rating-box {
+            border-radius: $setting-border-radius;
+            background-color: $setting-color-gray-7;
+            padding: rem(22) rem(38) rem(40);
+            margin-bottom: rem(21);
+
+            @include helper-breakpoint-media-min($lg) {
+                padding: rem(30) rem(20) rem(37);
+                margin-bottom: 0;
+            }
+
+            @include helper-breakpoint-media-min($xl) {
+                padding: rem(37) rem(40) rem(37);
+            }
+        }
+
+        &__no-review {
+            text-align: center;
+            margin: rem(8) 0;
+
+            @include helper-breakpoint-media-min($lg) {
+                text-align: left;
+            }
+        }
+
+        &__new-review-form {
+            padding-bottom: rem(16);
+        }
+    }
+}
+
+@include merchant-review-widget-merchant-review-summary;

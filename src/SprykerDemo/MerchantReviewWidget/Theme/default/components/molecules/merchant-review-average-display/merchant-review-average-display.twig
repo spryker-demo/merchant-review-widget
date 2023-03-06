@@ -1,0 +1,58 @@
+{% extends model('component') %}
+
+{% define config = {
+    name: 'merchant-review-average-display',
+    tag: 'section',
+} %}
+
+{% define data = {
+    summary: required,
+    ratingMaxValue: required,
+} %}
+
+{% define attributes = {
+    itemscope: '',
+    itemtype: 'http://schema.org/AggregateRating',
+    itemprop: 'aggregateRating',
+} %}
+
+{% block body %}
+    <div class="{{ config.name }}__average-rating">
+        {{ data.summary.averageRating }}
+    </div>
+
+    <meta itemprop="ratingValue" content="{{ data.summary.averageRating }}">
+    <meta itemprop="bestRating" content="{{ data.summary.maximumRating }}">
+    <meta itemprop="reviewCount" content="{{ data.summary.totalReview }}">
+
+    {% include molecule('merchant-rating-selector', 'MerchantReviewWidget') with {
+        modifiers: ['merchant-page'],
+        class: config.name ~ '__rating-selector',
+        data: {
+            value: data.summary.averageRating,
+            maxValue: data.ratingMaxValue,
+            useHalfSteps: true,
+        },
+        attributes: {
+            readonly: true,
+        },
+    } only %}
+
+    {% if data.summary.totalReview > 0 %}
+        <div class="{{ config.name }}__total-review">
+            {{- data.summary.totalReview }}
+
+            {% set amount = data.summary.totalReview > 1 ? 'multiple' : data.summary.totalReview %}
+
+            {{ amount | trans({
+                '1' : 'merchant_review.summary.review' | trans,
+                'multiple': 'merchant_review.summary.reviews' | trans,
+            }) -}}
+        </div>
+    {% else %}
+        <div class="{{ config.name }}__total-review is-hidden-sm-only">
+            {{ 'merchant_review.no_reviews' | trans }}
+        </div>
+    {% endif %}
+
+{% endblock %}

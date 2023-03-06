@@ -1,0 +1,43 @@
+@mixin merchant-review-widget-merchant-review-average-display($name: '.merchant-review-average-display') {
+    #{$name} {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include helper-breakpoint-media-min($md) {
+            display: block;
+            max-width: rem(110);
+        }
+
+        @include helper-breakpoint-media-min($xl) {
+            max-width: rem(140);
+        }
+
+        &__average-rating {
+            @include helper-font-weight(bold);
+            text-align: center;
+            font-size: rem(42);
+            color: $setting-color-gray-5;
+        }
+
+        &__rating-selector {
+            display: flex;
+            justify-content: center;
+        }
+
+        &__total-review {
+            @include helper-font-weight(regular);
+            @include helper-font-size(7);
+            line-height: 1.1;
+            text-align: center;
+            color: $setting-color-gray-3;
+            white-space: nowrap;
+
+            @include helper-breakpoint-media-min($md) {
+                white-space: normal;
+            }
+        }
+    }
+}
+
+@include merchant-review-widget-merchant-review-average-display;

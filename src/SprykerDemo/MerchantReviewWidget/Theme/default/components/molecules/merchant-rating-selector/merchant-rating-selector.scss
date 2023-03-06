@@ -1,0 +1,141 @@
+$merchant-review-rating-selector-icon-size: 14px;
+$merchant-review-rating-selector-icon-size-pdp: 16px;
+$merchant-review-rating-selector-icon-size-big: 24px;
+
+@mixin merchant-review-widget-merchant-rating-selector($name: '.merchant-rating-selector') {
+    #{$name} {
+        @include helper-font-size(default);
+        line-height: 1;
+        display: inline-block;
+
+        &__steps {
+            display: inline-block;
+            direction: rtl;
+            vertical-align: middle;
+            line-height: 0;
+        }
+
+        &__step {
+            float: right;
+            display: block;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: $setting-color-transparent;
+
+            &--full {
+                &:not(:first-child) {
+                    margin-right: 1px;
+                }
+            }
+
+            &--half {
+                &:nth-child(odd):not(:first-child) {
+                    margin-right: 1px;
+                }
+                width: calc($merchant-review-rating-selector-icon-size / 2);
+            }
+
+            #{$name}__star {
+                @include helper-effect-transition(color);
+                position: relative;
+                min-width: $merchant-review-rating-selector-icon-size;
+                min-height: $merchant-review-rating-selector-icon-size;
+                color: $setting-color-gray-2;
+                width: $merchant-review-rating-selector-icon-size;
+
+                &--half-left {
+                    left: calc($merchant-review-rating-selector-icon-size / 2);
+                }
+
+                &--half-right {
+                    right: 0;
+                }
+            }
+
+            &:hover > #{$name}__star,
+            &:hover ~ #{$name}__step > #{$name}__star {
+                color: $setting-color-yellow-1;
+            }
+
+            &--active > #{$name}__star {
+                color: $setting-color-yellow-1;
+                width: $merchant-review-rating-selector-icon-size;
+            }
+        }
+
+        &--big {
+            #{$name}__star {
+                width: $merchant-review-rating-selector-icon-size-big;
+                height: $merchant-review-rating-selector-icon-size-big;
+            }
+        }
+
+        &--readonly {
+            pointer-events: none;
+        }
+
+        &--expand {
+            display: block;
+        }
+
+        &--pdp {
+            min-width: rem(100);
+            margin: 0 rem(4);
+            display: flex;
+
+            @include helper-breakpoint-media-min($md) {
+                margin: 0 0 rem(7);
+            }
+
+            @include helper-breakpoint-media-min($lg) {
+                padding-top: rem(7);
+                padding-bottom: rem(16);
+            }
+
+            #{$name}__star {
+                min-width: $merchant-review-rating-selector-icon-size-pdp;
+                min-height: $merchant-review-rating-selector-icon-size-pdp;
+                height: $merchant-review-rating-selector-icon-size-pdp;
+
+                &--half-left {
+                    left: calc($merchant-review-rating-selector-icon-size-pdp / 2);
+                }
+            }
+
+            #{$name}__step {
+                &--half {
+                    width: calc($merchant-review-rating-selector-icon-size-pdp / 2);
+                }
+
+                > #{$name}__star {
+                    width: $merchant-review-rating-selector-icon-size-pdp;
+                }
+
+                &--active > #{$name}__star {
+                    width: $merchant-review-rating-selector-icon-size-pdp;
+                }
+            }
+        }
+
+        &--space {
+            padding-bottom: 7px;
+        }
+
+        &__count {
+            @include helper-font-size(7);
+            line-height: rem(16);
+            font-family: $setting-font-family;
+            color: $setting-color-gray-3;
+            margin-left: rem(3);
+            vertical-align: middle;
+
+            &--pdp {
+                @include helper-font-size(8);
+                margin-left: rem(5);
+            }
+        }
+    }
+}
+
+@include merchant-review-widget-merchant-rating-selector;
