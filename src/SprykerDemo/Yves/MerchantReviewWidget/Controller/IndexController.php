@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
@@ -39,18 +39,18 @@ class IndexController extends AbstractController
      */
     protected function executeIndexAction(Request $request): array
     {
-        $parentRequest = $this->getParentRequest();
         $idMerchant = $request->attributes->get('idMerchant');
 
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
         $hasCustomer = $customer !== null;
 
         $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
-        $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
-        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+        $merchantReviewSearchRequestTransfer->setSearchString($idMerchant);
+        $merchantReviewSearchRequestTransfer->setRequestParameters($request->query->all());
+
         $merchantReviews = $this->getFactory()
-            ->getMerchantReviewClient()
-            ->findMerchantReviewsInSearch($merchantReviewSearchRequestTransfer);
+            ->getMerchantReviewSearchClient()
+            ->search($merchantReviewSearchRequestTransfer);
 
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
@@ -64,13 +64,5 @@ class IndexController extends AbstractController
                 ->calculateMerchantReviewSummary($ratingAggregationTransfer),
             'maximumRating' => $this->getFactory()->getMerchantReviewClient()->getMaximumRating(),
         ];
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
-    protected function getParentRequest()
-    {
-        return $this->getRequestStack()->getParentRequest();
     }
 }

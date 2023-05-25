@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Form;
@@ -37,8 +37,19 @@ class MerchantReviewForm extends AbstractType
 
     public const UNSELECTED_RATING = -1;
 
+    /**
+     * @var string
+     */
     protected const GLOSSARY_KEY_NOT_BLANC_NICKNAME_RATING_VALIDATION_MESSAGE = 'merchant_review.error.no_blank_nickname';
+
+    /**
+     * @var string
+     */
     protected const GLOSSARY_KEY_NOT_BLANC_SUMMARY_RATING_VALIDATION_MESSAGE = 'merchant_review.error.no_blank_summary';
+
+    /**
+     * @var string
+     */
     protected const GLOSSARY_KEY_NOT_BLANC_DESCRIPTION_RATING_VALIDATION_MESSAGE = 'merchant_review.error.no_blank_description';
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerDemo\Yves\MerchantReviewWidget;
@@ -33,6 +33,11 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
     public const CLIENT_MERCHANT_REVIEW_STORAGE = 'CLIENT_MERCHANT_REVIEW_STORAGE';
 
     /**
+     * @var string
+     */
+    public const CLIENT_MERCHANT_REVIEW_SEARCH = 'CLIENT_MERCHANT_REVIEW_SEARCH';
+
+    /**
      * @deprecated Use {@link \Spryker\Yves\Kernel\AbstractFactory::getContainer()} instead.
      *
      * @var string
@@ -58,6 +63,7 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addCustomerClient($container);
         $container = $this->addMerchantReviewClient($container);
         $container = $this->addMerchantReviewStorageClient($container);
+        $container = $this->addMerchantReviewSearchClient($container);
         $container = $this->addPluginApplication($container);
         $container = $this->addRequestStack($container);
 
@@ -131,6 +137,20 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
     {
         $container->set(static::SERVICE_REQUEST_STACK, function (ContainerInterface $container) {
             return $container->getApplicationService(static::SERVICE_REQUEST_STACK);
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Yves\Kernel\Container $container
+     *
+     * @return \Spryker\Yves\Kernel\Container
+     */
+    protected function addMerchantReviewSearchClient(Container $container): Container
+    {
+        $container->set(static::CLIENT_MERCHANT_REVIEW_SEARCH, function (Container $container) {
+            return $container->getLocator()->merchantReviewSearch()->client();
         });
 
         return $container;

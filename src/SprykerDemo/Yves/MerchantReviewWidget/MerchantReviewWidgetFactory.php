@@ -1,24 +1,27 @@
 <?php
 
 /**
- * This file is part of the Spryker Commerce OS.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerDemo\Yves\MerchantReviewWidget;
 
-use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
-use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
-use SprykerDemo\Yves\MerchantReview\MerchantReviewFactory as SprykerMerchantReviewFactory;
-use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
-use SprykerDemo\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
 use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Shared\Application\ApplicationConstants;
+use Spryker\Yves\Kernel\AbstractFactory;
+use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
+use SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface;
+use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
+use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
+use SprykerDemo\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
  */
-class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
+class MerchantReviewWidgetFactory extends AbstractFactory
 {
     /**
      * @return \Spryker\Client\Customer\CustomerClientInterface
@@ -45,9 +48,17 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
     }
 
     /**
+     * @return \SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface
+     */
+    public function getMerchantReviewSearchClient(): MerchantReviewSearchClientInterface
+    {
+        return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::CLIENT_MERCHANT_REVIEW_SEARCH);
+    }
+
+    /**
      * @return \Symfony\Component\Form\FormFactory
      */
-    public function getFormFactory()
+    public function getFormFactory(): FormFactory
     {
         return $this->getProvidedDependency(ApplicationConstants::FORM_FACTORY);
     }
@@ -57,7 +68,7 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createMerchantReviewForm($idMerchant)
+    public function createMerchantReviewForm(int $idMerchant): FormInterface
     {
         $dataProvider = $this->createMerchantReviewFormDataProvider();
         $form = $this->getFormFactory()->create(
@@ -72,7 +83,7 @@ class MerchantReviewWidgetFactory extends SprykerMerchantReviewFactory
     /**
      * @return \SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider
      */
-    public function createMerchantReviewFormDataProvider()
+    public function createMerchantReviewFormDataProvider(): MerchantReviewFormDataProvider
     {
         return new MerchantReviewFormDataProvider();
     }
