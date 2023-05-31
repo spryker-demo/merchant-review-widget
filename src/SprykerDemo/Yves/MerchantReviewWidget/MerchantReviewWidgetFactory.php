@@ -48,14 +48,6 @@ class MerchantReviewWidgetFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface
-     */
-    public function getMerchantReviewSearchClient(): MerchantReviewSearchClientInterface
-    {
-        return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::CLIENT_MERCHANT_REVIEW_SEARCH);
-    }
-
-    /**
      * @return \Symfony\Component\Form\FormFactory
      */
     public function getFormFactory(): FormFactory

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
  */
-class MerchantPageReviewWidget extends AbstractWidget
+class MerchantReviewWidget extends AbstractWidget
 {
     /**
      * @param int $idMerchant
@@ -54,7 +54,7 @@ class MerchantPageReviewWidget extends AbstractWidget
      */
     public static function getName(): string
     {
-        return 'MerchantPageReviewWidget';
+        return 'MerchantReviewWidget';
     }
 
     /**
@@ -62,7 +62,7 @@ class MerchantPageReviewWidget extends AbstractWidget
      */
     public static function getTemplate(): string
     {
-        return '@MerchantReviewWidget/views/merchant-review/merchant-review.twig';
+        return '@MerchantReviewWidget/views/merchant-review-widget/merchant-review-widget.twig';
     }
 
     /**
@@ -136,11 +136,11 @@ class MerchantPageReviewWidget extends AbstractWidget
     protected function findMerchantReviews(int $idMerchant, Request $parentRequest): array
     {
         $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
-        $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
-        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+        $merchantReviewSearchRequestTransfer->setSearchString($idMerchant);
+        $merchantReviewSearchRequestTransfer->setRequestParameters($parentRequest->query->all());
 
         return $this->getFactory()
-            ->getMerchantReviewClient()
-            ->findMerchantReviewsInSearch($merchantReviewSearchRequestTransfer);
+            ->getMerchantReviewSearchClient()
+            ->search($merchantReviewSearchRequestTransfer);
     }
 }

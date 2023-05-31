@@ -44,13 +44,11 @@ class IndexController extends AbstractController
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
         $hasCustomer = $customer !== null;
 
-        $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
-        $merchantReviewSearchRequestTransfer->setSearchString($idMerchant);
-        $merchantReviewSearchRequestTransfer->setRequestParameters($request->query->all());
-
         $merchantReviews = $this->getFactory()
-            ->getMerchantReviewSearchClient()
-            ->search($merchantReviewSearchRequestTransfer);
+            ->getMerchantReviewStorageClient()
+            ->findMerchantReview($idMerchant);
+
+        dd($merchantReviews);
 
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
