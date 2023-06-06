@@ -140,7 +140,7 @@ class MerchantReviewWidget extends AbstractWidget
         $merchantReviewSearchRequestTransfer->setRequestParameters($parentRequest->query->all());
 
         return $this->getFactory()
-            ->getMerchantReviewSearchClient()
-            ->search($merchantReviewSearchRequestTransfer);
+            ->getMerchantReviewStorageClient()
+            ->findMerchantReview($merchantReviewSearchRequestTransfer);
     }
 }
