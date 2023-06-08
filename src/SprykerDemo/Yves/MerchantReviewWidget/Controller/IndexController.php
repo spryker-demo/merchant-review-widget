@@ -46,7 +46,7 @@ class IndexController extends AbstractController
 
         $merchantReviews = $this->getFactory()
             ->getMerchantReviewStorageClient()
-            ->findMerchantReview($idMerchant);
+            ->findMerchantReviews($idMerchant);
 
         dd($merchantReviews);
 
