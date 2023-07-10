@@ -48,7 +48,6 @@ class IndexController extends AbstractController
             ->getMerchantReviewStorageClient()
             ->findMerchantReviews($idMerchant);
 
-        dd($merchantReviews);
 
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
@@ -58,7 +57,7 @@ class IndexController extends AbstractController
             'merchantReviews' => $merchantReviews['merchantReviews'],
             'pagination' => $merchantReviews['pagination'],
             'summary' => $this->getFactory()
-                ->getMerchantReviewClient()
+                ->getMerchantReviewService()
                 ->calculateMerchantReviewSummary($ratingAggregationTransfer),
             'maximumRating' => $this->getFactory()->getMerchantReviewClient()->getMaximumRating(),
         ];

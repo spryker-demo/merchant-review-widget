@@ -7,10 +7,13 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget;
 
+use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 use Spryker\Yves\Kernel\Plugin\Pimple;
+use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
+use SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface;
 
 /**
  * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig getConfig()
@@ -37,19 +40,7 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
      */
     public const CLIENT_MERCHANT_REVIEW_SEARCH = 'CLIENT_MERCHANT_REVIEW_SEARCH';
 
-    /**
-     * @deprecated Use {@link \Spryker\Yves\Kernel\AbstractFactory::getContainer()} instead.
-     *
-     * @var string
-     */
-    public const PLUGIN_APPLICATION = 'PLUGIN_APPLICATION';
-
-    /**
-     * @uses \Spryker\Yves\Http\Plugin\Application\HttpApplicationPlugin::SERVICE_REQUEST_STACK
-     *
-     * @var string
-     */
-    public const SERVICE_REQUEST_STACK = 'request_stack';
+    public const SERVICE_MERCHANT_REVIEW = 'SERVICE_MERCHANT_REVIEW';
 
     /**
      * @param \Spryker\Yves\Kernel\Container $container
@@ -64,8 +55,6 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addMerchantReviewClient($container);
         $container = $this->addMerchantReviewStorageClient($container);
         $container = $this->addMerchantReviewSearchClient($container);
-        $container = $this->addPluginApplication($container);
-        $container = $this->addRequestStack($container);
 
         return $container;
     }
@@ -77,7 +66,7 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
      */
     protected function addCustomerClient(Container $container)
     {
-        $container->set(static::CLIENT_CUSTOMER, function (Container $container) {
+        $container->set(static::CLIENT_CUSTOMER, function (Container $container): CustomerClientInterface {
             return $container->getLocator()->customer()->client();
         });
 
@@ -89,7 +78,7 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function addMerchantReviewClient(Container $container)
+    protected function addMerchantReviewClient(Container $container): Container
     {
         $container->set(static::CLIENT_MERCHANT_REVIEW, function (Container $container) {
             return $container->getLocator()->merchantReview()->client();
@@ -98,45 +87,24 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
+    protected function addMerchantReviewService(Container $container): Container
+    {
+        $container->set(static::SERVICE_MERCHANT_REVIEW, function (Container $container): MerchantReviewServiceInterface {
+            return $container->getLocator()->merchantReview()->service();
+        });
+
+        return $container;
+    }
+
     /**
      * @param \Spryker\Yves\Kernel\Container $container
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function addMerchantReviewStorageClient(Container $container)
+    protected function addMerchantReviewStorageClient(Container $container): Container
     {
-        $container->set(static::CLIENT_MERCHANT_REVIEW_STORAGE, function (Container $container) {
+        $container->set(static::CLIENT_MERCHANT_REVIEW_STORAGE, function (Container $container): MerchantReviewStorageClientInterface {
             return $container->getLocator()->merchantReviewStorage()->client();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @deprecated Use {@link \Spryker\Yves\Kernel\AbstractFactory::getContainer()} instead.
-     *
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
-    protected function addPluginApplication(Container $container): Container
-    {
-        $container->set(static::PLUGIN_APPLICATION, function () {
-            return (new Pimple())->getApplication();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
-    protected function addRequestStack(Container $container): Container
-    {
-        $container->set(static::SERVICE_REQUEST_STACK, function (ContainerInterface $container) {
-            return $container->getApplicationService(static::SERVICE_REQUEST_STACK);
         });
 
         return $container;

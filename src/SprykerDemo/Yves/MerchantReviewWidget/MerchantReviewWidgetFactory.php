@@ -13,6 +13,7 @@ use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
 use SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface;
 use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
+use SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface;
 use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
 use SprykerDemo\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
 use Symfony\Component\Form\FormFactory;
@@ -78,5 +79,13 @@ class MerchantReviewWidgetFactory extends AbstractFactory
     public function createMerchantReviewFormDataProvider(): MerchantReviewFormDataProvider
     {
         return new MerchantReviewFormDataProvider();
+    }
+
+    /**
+     * @return \SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface
+     */
+    public function getMerchantReviewService(): MerchantReviewServiceInterface
+    {
+        return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::SERVICE_MERCHANT_REVIEW);
     }
 }

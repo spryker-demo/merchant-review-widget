@@ -41,7 +41,7 @@ class MerchantReviewWidget extends AbstractWidget
             ->addParameter(
                 'summary',
                 $this->getFactory()
-                    ->getMerchantReviewClient()
+                    ->getMerchantReviewService()
                     ->calculateMerchantReviewSummary($ratingAggregationTransfer),
             )
             ->addParameter('maximumRating', $this->getFactory()->getMerchantReviewClient()->getMaximumRating());
