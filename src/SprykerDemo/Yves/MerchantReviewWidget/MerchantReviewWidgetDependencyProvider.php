@@ -55,6 +55,7 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addMerchantReviewClient($container);
         $container = $this->addMerchantReviewStorageClient($container);
         $container = $this->addMerchantReviewSearchClient($container);
+        $container = $this->addMerchantReviewService($container);
 
         return $container;
     }
