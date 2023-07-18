@@ -16,16 +16,16 @@ export default class MerchantRatingSelector extends Component {
     protected reviewCount: HTMLElement;
 
     protected init(): void {
-        this.reviewCount = (this.getElementsByClassName(`${this.jsName}__review-count`)[0] as HTMLElement);
+        this.reviewCount = this.getElementsByClassName(`${this.jsName}__review-count`)[0] as HTMLElement;
 
         super.init();
     }
 
     protected readyCallback(): void {
-        this.input = (this.getElementsByClassName(`${this.jsName}__input`)[0] as HTMLInputElement);
-        this.steps = (Array.from(this.getElementsByClassName(`${this.jsName}__step`)) as HTMLElement[]);
+        this.input = this.getElementsByClassName(`${this.jsName}__input`)[0] as HTMLInputElement;
+        this.steps = Array.from(this.getElementsByClassName(`${this.jsName}__step`)) as HTMLElement[];
         if (this.productItemClassName) {
-            this.productItem = (this.closest(`.${this.productItemClassName}`) as ProductItem);
+            this.productItem = this.closest(`.${this.productItemClassName}`) as ProductItem;
         }
 
         if (!this.readOnly) {
