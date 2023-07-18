@@ -16,16 +16,16 @@ export default class MerchantRatingSelector extends Component {
     protected reviewCount: HTMLElement;
 
     protected init(): void {
-        this.reviewCount = <HTMLElement>this.getElementsByClassName(`${this.jsName}__review-count`)[0];
+        this.reviewCount = (this.getElementsByClassName(`${this.jsName}__review-count`)[0] as HTMLElement);
 
         super.init();
     }
 
     protected readyCallback(): void {
-        this.input = <HTMLInputElement>this.getElementsByClassName(`${this.jsName}__input`)[0];
-        this.steps = <HTMLElement[]>Array.from(this.getElementsByClassName(`${this.jsName}__step`));
+        this.input = (this.getElementsByClassName(`${this.jsName}__input`)[0] as HTMLInputElement);
+        this.steps = (Array.from(this.getElementsByClassName(`${this.jsName}__step`)) as HTMLElement[]);
         if (this.productItemClassName) {
-            this.productItem = <ProductItem>this.closest(`.${this.productItemClassName}`);
+            this.productItem = (this.closest(`.${this.productItemClassName}`) as ProductItem);
         }
 
         if (!this.readOnly) {
@@ -61,7 +61,7 @@ export default class MerchantRatingSelector extends Component {
         }
 
         this.productItem.addEventListener(EVENT_UPDATE_REVIEW_COUNT, (event: Event) => {
-            this.updateReviewCount((<CustomEvent>event).detail.reviewCount);
+            this.updateReviewCount((event as CustomEvent).detail.reviewCount);
         });
     }
 
@@ -73,12 +73,12 @@ export default class MerchantRatingSelector extends Component {
 
     protected mapProductItemUpdateRatingCustomEvent() {
         this.productItem.addEventListener(EVENT_UPDATE_RATING, (event: Event) => {
-            this.updateRating((<CustomEvent>event).detail.rating);
+            this.updateRating((event as CustomEvent).detail.rating);
         });
     }
 
     protected onStepClick(event: Event): void {
-        const step = <HTMLElement>event.currentTarget;
+        const step = event.currentTarget as HTMLElement;
         const newValue = parseFloat(step.getAttribute('data-step-value'));
 
         this.checkInput(newValue);
