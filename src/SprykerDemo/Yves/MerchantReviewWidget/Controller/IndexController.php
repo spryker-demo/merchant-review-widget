@@ -7,7 +7,6 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
 
-use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Shared\Storage\StorageConstants;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
@@ -47,7 +46,6 @@ class IndexController extends AbstractController
         $merchantReviews = $this->getFactory()
             ->getMerchantReviewStorageClient()
             ->findMerchantReviews($idMerchant);
-
 
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);

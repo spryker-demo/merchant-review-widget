@@ -8,10 +8,8 @@
 namespace SprykerDemo\Yves\MerchantReviewWidget;
 
 use Spryker\Client\Customer\CustomerClientInterface;
-use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
-use Spryker\Yves\Kernel\Plugin\Pimple;
 use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
 use SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface;
 
@@ -38,8 +36,6 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
     /**
      * @var string
      */
-    public const CLIENT_MERCHANT_REVIEW_SEARCH = 'CLIENT_MERCHANT_REVIEW_SEARCH';
-
     public const SERVICE_MERCHANT_REVIEW = 'SERVICE_MERCHANT_REVIEW';
 
     /**
@@ -54,7 +50,6 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         $container = $this->addCustomerClient($container);
         $container = $this->addMerchantReviewClient($container);
         $container = $this->addMerchantReviewStorageClient($container);
-        $container = $this->addMerchantReviewSearchClient($container);
         $container = $this->addMerchantReviewService($container);
 
         return $container;
@@ -88,6 +83,11 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
         return $container;
     }
 
+    /**
+     * @param \Spryker\Yves\Kernel\Container $container
+     *
+     * @return \Spryker\Yves\Kernel\Container
+     */
     protected function addMerchantReviewService(Container $container): Container
     {
         $container->set(static::SERVICE_MERCHANT_REVIEW, function (Container $container): MerchantReviewServiceInterface {
@@ -106,20 +106,6 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
     {
         $container->set(static::CLIENT_MERCHANT_REVIEW_STORAGE, function (Container $container): MerchantReviewStorageClientInterface {
             return $container->getLocator()->merchantReviewStorage()->client();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
-    protected function addMerchantReviewSearchClient(Container $container): Container
-    {
-        $container->set(static::CLIENT_MERCHANT_REVIEW_SEARCH, function (Container $container) {
-            return $container->getLocator()->merchantReviewSearch()->client();
         });
 
         return $container;

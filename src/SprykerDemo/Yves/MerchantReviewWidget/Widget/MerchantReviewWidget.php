@@ -7,9 +7,7 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Widget;
 
-use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
-use Generated\Shared\Transfer\MerchantReviewStorageTransfer;
-use Generated\Shared\Transfer\PaginationTransfer;
+use Generated\Shared\Transfer\MerchantReviewCollectionTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use Symfony\Component\Form\FormInterface;
@@ -113,7 +111,12 @@ class MerchantReviewWidget extends AbstractWidget
         return $customer !== null;
     }
 
-    protected function findMerchantReviews($idMerchant)
+    /**
+     * @param $idMerchant
+     *
+     * @return \Generated\Shared\Transfer\MerchantReviewCollectionTransfer
+     */
+    protected function findMerchantReviews($idMerchant): MerchantReviewCollectionTransfer
     {
         return $this->getFactory()
             ->getMerchantReviewStorageClient()

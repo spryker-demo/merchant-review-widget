@@ -11,7 +11,6 @@ use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
-use SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface;
 use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
 use SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface;
 use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
