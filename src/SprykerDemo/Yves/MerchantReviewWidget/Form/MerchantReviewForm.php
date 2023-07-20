@@ -128,17 +128,15 @@ class MerchantReviewForm extends AbstractType
      * Example
      *  [-1 => 'none', 1 => 1, 2 => 2]
      *
-     * @return array
+     * @return array<int, mixed>
      */
-    protected function getRatingFieldChoices()
+    protected function getRatingFieldChoices(): array
     {
         $choiceKeys = $choiceValues = range(static::MINIMUM_RATING, $this->getFactory()->getMerchantReviewClient()->getMaximumRating());
         array_unshift($choiceKeys, static::UNSELECTED_RATING);
         array_unshift($choiceValues, 'merchant_review.submit.rating.none');
-        /** @var array $choices */
-        $choices = array_combine($choiceKeys, $choiceValues);
 
-        return $choices;
+        return array_combine($choiceKeys, $choiceValues);
     }
 
     /**

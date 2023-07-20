@@ -105,9 +105,13 @@ class CreateController extends AbstractController
             ->submitCustomerReview($merchantReviewRequestTransfer);
 
         if ($merchantReviewResponseTransfer->getIsSuccess() === false) {
-            /** @var array<\Generated\Shared\Transfer\MerchantReviewErrorTransfer> $errors */
-            $errors = $merchantReviewResponseTransfer->getErrors();
-            $this->addErrorMessage($errors[0]->getMessage());
+            foreach ($merchantReviewResponseTransfer->getErrors() as $errorTransfer) {
+                $message = $errorTransfer->getMessage();
+                if (!$message) {
+                    continue;
+                }
+                $this->addErrorMessage($message);
+            }
 
             return;
         }
@@ -133,7 +137,7 @@ class CreateController extends AbstractController
     protected function getRefererUrl(Request $request): string
     {
         if ($request->headers->has(static::REQUEST_HEADER_REFERER)) {
-            return $request->headers->get(static::REQUEST_HEADER_REFERER);
+            return $request->headers->get(static::REQUEST_HEADER_REFERER) ?? '';
         }
 
         return static::URL_MAIN;

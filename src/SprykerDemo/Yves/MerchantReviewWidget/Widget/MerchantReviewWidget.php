@@ -7,7 +7,6 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Widget;
 
-use Generated\Shared\Transfer\MerchantReviewCollectionTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use Symfony\Component\Form\FormInterface;
@@ -25,10 +24,17 @@ class MerchantReviewWidget extends AbstractWidget
     public function __construct(int $idMerchant)
     {
         $form = $this->getMerchantReviewForm($idMerchant);
-        $merchantReviews = [];
+        $merchantReviews = $this->getFactory()
+            ->getMerchantReviewStorageClient()
+            ->findMerchantReviews($idMerchant)
+            ->getMerchantReviews();
 
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
-        $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation'] ?? null);
+        foreach ($merchantReviews as $merchantReviewTransfer) {
+            /** @var int $rating */
+            $rating = $merchantReviewTransfer->getRating();
+            $ratingAggregationTransfer->addRatingAggregation($rating);
+        }
 
         $this->addParameter('idMerchant', $idMerchant)
             ->addParameter('maximumRating', $this->getMaximumRating())
@@ -86,9 +92,9 @@ class MerchantReviewWidget extends AbstractWidget
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Symfony\Component\HttpFoundation\Request|null
      */
-    protected function getCurrentRequest(): Request
+    protected function getCurrentRequest(): ?Request
     {
         return $this->getRequestStack()->getCurrentRequest();
     }
@@ -109,17 +115,5 @@ class MerchantReviewWidget extends AbstractWidget
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
 
         return $customer !== null;
-    }
-
-    /**
-     * @param $idMerchant
-     *
-     * @return \Generated\Shared\Transfer\MerchantReviewCollectionTransfer
-     */
-    protected function findMerchantReviews($idMerchant): MerchantReviewCollectionTransfer
-    {
-        return $this->getFactory()
-            ->getMerchantReviewStorageClient()
-            ->findMerchantReviews($idMerchant);
     }
 }
