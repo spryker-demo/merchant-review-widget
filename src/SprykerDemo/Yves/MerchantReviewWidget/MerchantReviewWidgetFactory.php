@@ -11,7 +11,7 @@ use Spryker\Client\Customer\CustomerClientInterface;
 use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerDemo\Client\MerchantReview\MerchantReviewClientInterface;
-use SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface;
+use SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface;
 use SprykerDemo\Service\MerchantReview\MerchantReviewServiceInterface;
 use SprykerDemo\Yves\MerchantReviewWidget\Form\DataProvider\MerchantReviewFormDataProvider;
 use SprykerDemo\Yves\MerchantReviewWidget\Form\MerchantReviewForm;
@@ -37,14 +37,6 @@ class MerchantReviewWidgetFactory extends AbstractFactory
     public function getMerchantReviewClient(): MerchantReviewClientInterface
     {
         return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::CLIENT_MERCHANT_REVIEW);
-    }
-
-    /**
-     * @return \SprykerDemo\Client\MerchantReviewStorage\MerchantReviewStorageClientInterface
-     */
-    public function getMerchantReviewStorageClient(): MerchantReviewStorageClientInterface
-    {
-        return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::CLIENT_MERCHANT_REVIEW_STORAGE);
     }
 
     /**
@@ -86,5 +78,13 @@ class MerchantReviewWidgetFactory extends AbstractFactory
     public function getMerchantReviewService(): MerchantReviewServiceInterface
     {
         return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::SERVICE_MERCHANT_REVIEW);
+    }
+
+    /**
+     * @return \SprykerDemo\Client\MerchantReviewSearch\MerchantReviewSearchClientInterface
+     */
+    public function getMerchantReviewSearchClient(): MerchantReviewSearchClientInterface
+    {
+        return $this->getProvidedDependency(MerchantReviewWidgetDependencyProvider::CLIENT_MERCHANT_REVIEW_SEARCH);
     }
 }

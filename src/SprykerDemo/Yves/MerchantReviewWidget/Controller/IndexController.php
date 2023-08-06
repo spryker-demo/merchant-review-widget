@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
 
+use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Shared\Storage\StorageConstants;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
@@ -39,14 +40,17 @@ class IndexController extends AbstractController
     protected function executeIndexAction(Request $request): array
     {
         $idMerchant = $request->attributes->get('idMerchant');
+        $parentRequest = $this->getParentRequest();
 
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
         $hasCustomer = $customer !== null;
 
+        $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
+        $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
+        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
         $merchantReviews = $this->getFactory()
-            ->getMerchantReviewStorageClient()
-            ->findMerchantReviews($idMerchant);
-
+            ->getMerchantReviewSearchClient()
+            ->search($merchantReviewSearchRequestTransfer);
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
 
@@ -59,5 +63,13 @@ class IndexController extends AbstractController
                 ->calculateMerchantReviewSummary($ratingAggregationTransfer),
             'maximumRating' => $this->getFactory()->getMerchantReviewClient()->getMaximumRating(),
         ];
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    protected function getParentRequest(): Request
+    {
+        return $this->getRequestStack()->getParentRequest();
     }
 }

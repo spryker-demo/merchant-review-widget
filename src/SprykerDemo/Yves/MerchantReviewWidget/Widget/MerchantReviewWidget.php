@@ -7,6 +7,7 @@
 
 namespace SprykerDemo\Yves\MerchantReviewWidget\Widget;
 
+use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use Symfony\Component\Form\FormInterface;
@@ -24,24 +25,16 @@ class MerchantReviewWidget extends AbstractWidget
     public function __construct(int $idMerchant)
     {
         $form = $this->getMerchantReviewForm($idMerchant);
-        $merchantReviews = $this->getFactory()
-            ->getMerchantReviewStorageClient()
-            ->findMerchantReviews($idMerchant)
-            ->getMerchantReviews();
-
+        $merchantReviews = $this->findMerchantReviews($idMerchant, $this->getCurrentRequest());
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
-        foreach ($merchantReviews as $merchantReviewTransfer) {
-            /** @var int $rating */
-            $rating = $merchantReviewTransfer->getRating();
-            $ratingAggregationTransfer->addRatingAggregation($rating);
-        }
-
+        $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
         $this->addParameter('idMerchant', $idMerchant)
             ->addParameter('maximumRating', $this->getMaximumRating())
             ->addParameter('form', $form->createView())
             ->addParameter('hideForm', !$form->isSubmitted())
             ->addParameter('hasCustomer', $this->hasCustomer())
             ->addParameter('merchantReviews', $merchantReviews['merchantReviews'] ?? [])
+            ->addParameter('pagination', $merchantReviews['pagination'])
             ->addParameter(
                 'summary',
                 $this->getFactory()
@@ -115,5 +108,22 @@ class MerchantReviewWidget extends AbstractWidget
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
 
         return $customer !== null;
+    }
+
+    /**
+     * @param int $idMerchant
+     * @param \Symfony\Component\HttpFoundation\Request $parentRequest
+     *
+     * @return array
+     */
+    protected function findMerchantReviews(int $idMerchant, Request $parentRequest): array
+    {
+        $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
+        $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
+        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+
+        return $this->getFactory()
+            ->getMerchantReviewSearchClient()
+            ->search($merchantReviewSearchRequestTransfer);
     }
 }

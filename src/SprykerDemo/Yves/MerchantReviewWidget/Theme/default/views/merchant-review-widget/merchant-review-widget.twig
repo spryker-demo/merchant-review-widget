@@ -12,8 +12,10 @@
 
     pagination: {
         parameters: app.request.query.all(),
+        currentPage: _widget.pagination.currentPage,
         paginationPath: app.request.getPathInfo(),
         showAlwaysFirstAndLast: true,
+        maxPage: _widget.pagination.maxPage,
         anchor: 'merchant-reviews'
     }
 } %}
