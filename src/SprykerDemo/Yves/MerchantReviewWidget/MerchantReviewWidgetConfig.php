@@ -17,6 +17,13 @@ class MerchantReviewWidgetConfig extends AbstractBundleConfig
     public const GLOSSARY_KEY_INVALID_RATING_VALIDATION_MESSAGE = 'merchant_review.error.invalid_rating';
 
     /**
+     * @var int
+     *
+     * @uses \SprykerDemo\Shared\MerchantReview\MerchantReviewConfig::MERCHANT_REVIEW_MAXIMUM_RATING
+     */
+    public const MERCHANT_REVIEW_MAXIMUM_RATING = 5;
+
+    /**
      * @api
      *
      * @return string

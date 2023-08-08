@@ -9,7 +9,7 @@ namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
 
 use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
-use Spryker\Shared\Storage\StorageConstants;
+use SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,7 +18,35 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class IndexController extends AbstractController
 {
-    public const STORAGE_CACHE_STRATEGY = StorageConstants::STORAGE_CACHE_STRATEGY_INACTIVE;
+    /**
+     * @var string
+     */
+    protected const PARAM_ID_MERCHANT = 'idMerchant';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_HAS_CUSTOMER = 'hasCustomer';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_MERCHANT_REVIEWS = 'merchantReviews';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_PAGINATION = 'pagination';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_SUMMARY = 'summary';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_MAXIMUM_RATING = 'maximumRating';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -55,13 +83,13 @@ class IndexController extends AbstractController
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
 
         return [
-            'hasCustomer' => $hasCustomer,
-            'merchantReviews' => $merchantReviews['merchantReviews'],
-            'pagination' => $merchantReviews['pagination'],
-            'summary' => $this->getFactory()
+            static::PARAM_HAS_CUSTOMER => $hasCustomer,
+            static::PARAM_MERCHANT_REVIEWS => $merchantReviews['merchantReviews'],
+            static::PARAM_PAGINATION => $merchantReviews['pagination'],
+            static::PARAM_SUMMARY => $this->getFactory()
                 ->getMerchantReviewService()
                 ->calculateMerchantReviewSummary($ratingAggregationTransfer),
-            'maximumRating' => $this->getFactory()->getMerchantReviewClient()->getMaximumRating(),
+            static::PARAM_MAXIMUM_RATING => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING,
         ];
     }
 

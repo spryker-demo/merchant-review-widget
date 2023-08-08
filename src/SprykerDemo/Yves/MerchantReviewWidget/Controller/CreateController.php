@@ -8,6 +8,7 @@
 namespace SprykerDemo\Yves\MerchantReviewWidget\Controller;
 
 use Generated\Shared\Transfer\MerchantReviewRequestTransfer;
+use Generated\Shared\Transfer\MerchantReviewResponseTransfer;
 use SprykerShop\Yves\ShopApplication\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,20 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CreateController extends AbstractController
 {
-    /**
-     * @deprecated Will be removed without replacement.
-     *
-     * @var string
-     */
-    public const ERROR_MESSAGE_NO_CUSTOMER = 'Only customers can use this feature. Please log in.';
-
-    /**
-     * @deprecated Will be removed without replacement.
-     *
-     * @var string
-     */
-    public const SUCCESS_MESSAGE = 'Review was submitted';
-
     /**
      * @var string
      */
@@ -52,6 +39,11 @@ class CreateController extends AbstractController
     protected const GLOSSARY_KEY_ERROR_NO_CUSTOMER = 'merchant_review.error.no_customer';
 
     /**
+     * @var string
+     */
+    protected const PARAM_ID_MERCHANT = 'idMerchant';
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -70,7 +62,7 @@ class CreateController extends AbstractController
      */
     protected function executeIndexAction(Request $request): void
     {
-        $idMerchant = $request->attributes->get('idMerchant');
+        $idMerchant = $request->attributes->get(static::PARAM_ID_MERCHANT);
         $form = $this->getFactory()
             ->createMerchantReviewForm($idMerchant)
             ->handleRequest($request);
@@ -105,18 +97,28 @@ class CreateController extends AbstractController
             ->submitCustomerReview($merchantReviewRequestTransfer);
 
         if ($merchantReviewResponseTransfer->getIsSuccess() === false) {
-            foreach ($merchantReviewResponseTransfer->getErrors() as $errorTransfer) {
-                $message = $errorTransfer->getMessage();
-                if (!$message) {
-                    continue;
-                }
-                $this->addErrorMessage($message);
-            }
+            $this->handleErrors($merchantReviewResponseTransfer);
 
             return;
         }
 
         $this->addSuccessMessage(static::GLOSSARY_KEY_SUCCESS_MERCHANT_REVIEW_SUBMITTED);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\MerchantReviewResponseTransfer $merchantReviewResponseTransfer
+     *
+     * @return void
+     */
+    protected function handleErrors(MerchantReviewResponseTransfer $merchantReviewResponseTransfer): void
+    {
+        foreach ($merchantReviewResponseTransfer->getErrors() as $errorTransfer) {
+            $message = $errorTransfer->getMessage();
+            if (!$message) {
+                continue;
+            }
+            $this->addErrorMessage($message);
+        }
     }
 
     /**

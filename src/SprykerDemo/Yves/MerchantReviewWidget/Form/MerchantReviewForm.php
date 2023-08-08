@@ -9,6 +9,7 @@ namespace SprykerDemo\Yves\MerchantReviewWidget\Form;
 
 use Generated\Shared\Transfer\MerchantReviewRequestTransfer;
 use Spryker\Yves\Kernel\Form\AbstractType;
+use SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -58,8 +59,6 @@ class MerchantReviewForm extends AbstractType
     public const MINIMUM_RATING = 1;
 
     /**
-     * @deprecated Use {@link MerchantReviewWidgetConfig::GLOSSARY_KEY_INVALID_RATING_VALIDATION_MESSAGE} instead.
-     *
      * @var string
      */
     protected const VALIDATION_RATING_MESSAGE = 'validation.choice';
@@ -108,7 +107,7 @@ class MerchantReviewForm extends AbstractType
                 'multiple' => false,
                 'constraints' => [
                     new GreaterThanOrEqual(['value' => static::MINIMUM_RATING]),
-                    new LessThanOrEqual(['value' => $this->getFactory()->getMerchantReviewClient()->getMaximumRating()]),
+                    new LessThanOrEqual(['value' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING]),
                 ],
                 'invalid_message' => $this->getConfig()->getInvalidRatingValidationMessageGlossaryKey(),
             ],
@@ -132,7 +131,7 @@ class MerchantReviewForm extends AbstractType
      */
     protected function getRatingFieldChoices(): array
     {
-        $choiceKeys = $choiceValues = range(static::MINIMUM_RATING, $this->getFactory()->getMerchantReviewClient()->getMaximumRating());
+        $choiceKeys = $choiceValues = range(static::MINIMUM_RATING, MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING);
         array_unshift($choiceKeys, static::UNSELECTED_RATING);
         array_unshift($choiceValues, 'merchant_review.submit.rating.none');
 
@@ -154,7 +153,7 @@ class MerchantReviewForm extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => static::GLOSSARY_KEY_NOT_BLANC_SUMMARY_RATING_VALIDATION_MESSAGE]),
-                    new Length(['min' => 1]),
+                    new Length(['min' => 1, 'max' => 255]),
                 ],
             ],
         );
@@ -180,7 +179,7 @@ class MerchantReviewForm extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => static::GLOSSARY_KEY_NOT_BLANC_DESCRIPTION_RATING_VALIDATION_MESSAGE]),
-                    new Length(['min' => 1]),
+                    new Length(['min' => 1, 'max' => 1000]),
                 ],
             ],
         );

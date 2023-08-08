@@ -24,7 +24,7 @@
     {% include molecule('merchant-rating-selector', 'MerchantReviewWidget') with {
         modifiers: ['expand', 'merchant-page'],
         data: {
-            value: _widget.merchantReviewStorageTransfer.averageRating | default(0),
+            value: _widget.summary.averageRating | default(5),
             maxValue: _widget.maximumRating
         },
         attributes: {

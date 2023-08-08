@@ -10,6 +10,7 @@ namespace SprykerDemo\Yves\MerchantReviewWidget\Widget;
 use Generated\Shared\Transfer\MerchantReviewSearchRequestTransfer;
 use Generated\Shared\Transfer\RatingAggregationTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
+use SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetConfig;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,6 +21,46 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class MerchantReviewWidget extends AbstractWidget
 {
     /**
+     * @var string
+     */
+    protected const PARAM_ID_MERCHANT = 'idMerchant';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_FORM = 'form';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_HIDE_FORM = 'hideForm';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_HAS_CUSTOMER = 'hasCustomer';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_MERCHANT_REVIEWS = 'merchantReviews';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_PAGINATION = 'pagination';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_SUMMARY = 'summary';
+
+    /**
+     * @var string
+     */
+    protected const PARAM_MAXIMUM_RATING = 'maximumRating';
+
+    /**
      * @param int $idMerchant
      */
     public function __construct(int $idMerchant)
@@ -28,20 +69,19 @@ class MerchantReviewWidget extends AbstractWidget
         $merchantReviews = $this->findMerchantReviews($idMerchant, $this->getCurrentRequest());
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
-        $this->addParameter('idMerchant', $idMerchant)
-            ->addParameter('maximumRating', $this->getMaximumRating())
-            ->addParameter('form', $form->createView())
-            ->addParameter('hideForm', !$form->isSubmitted())
-            ->addParameter('hasCustomer', $this->hasCustomer())
-            ->addParameter('merchantReviews', $merchantReviews['merchantReviews'] ?? [])
-            ->addParameter('pagination', $merchantReviews['pagination'])
+        $this->addParameter(static::PARAM_ID_MERCHANT, $idMerchant)
+            ->addParameter(static::PARAM_MAXIMUM_RATING, MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING)
+            ->addParameter(static::PARAM_FORM, $form->createView())
+            ->addParameter(static::PARAM_HIDE_FORM, !$form->isSubmitted())
+            ->addParameter(static::PARAM_HAS_CUSTOMER, $this->hasCustomer())
+            ->addParameter(static::PARAM_MERCHANT_REVIEWS, $merchantReviews['merchantReviews'] ?? [])
+            ->addParameter(static::PARAM_PAGINATION, $merchantReviews['pagination'])
             ->addParameter(
-                'summary',
+                static::PARAM_SUMMARY,
                 $this->getFactory()
                     ->getMerchantReviewService()
                     ->calculateMerchantReviewSummary($ratingAggregationTransfer),
-            )
-            ->addParameter('maximumRating', $this->getFactory()->getMerchantReviewClient()->getMaximumRating());
+            );
     }
 
     /**
@@ -58,16 +98,6 @@ class MerchantReviewWidget extends AbstractWidget
     public static function getTemplate(): string
     {
         return '@MerchantReviewWidget/views/merchant-review-widget/merchant-review-widget.twig';
-    }
-
-    /**
-     * @return int
-     */
-    protected function getMaximumRating(): int
-    {
-        return $this->getFactory()
-            ->getMerchantReviewClient()
-            ->getMaximumRating();
     }
 
     /**
