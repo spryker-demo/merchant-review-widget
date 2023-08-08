@@ -68,14 +68,18 @@ class IndexController extends AbstractController
     protected function executeIndexAction(Request $request): array
     {
         $idMerchant = $request->attributes->get('idMerchant');
-        $parentRequest = $this->getParentRequest();
+        $parentRequest = $this->resolveParentRequest();
 
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();
         $hasCustomer = $customer !== null;
 
         $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
         $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
-        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+
+        if ($parentRequest) {
+            $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+        }
+
         $merchantReviews = $this->getFactory()
             ->getMerchantReviewSearchClient()
             ->search($merchantReviewSearchRequestTransfer);
@@ -94,9 +98,9 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Symfony\Component\HttpFoundation\Request|null
      */
-    protected function getParentRequest(): Request
+    protected function resolveParentRequest(): ?Request
     {
         return $this->getRequestStack()->getParentRequest();
     }

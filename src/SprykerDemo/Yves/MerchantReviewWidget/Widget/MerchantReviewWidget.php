@@ -66,7 +66,7 @@ class MerchantReviewWidget extends AbstractWidget
     public function __construct(int $idMerchant)
     {
         $form = $this->getMerchantReviewForm($idMerchant);
-        $merchantReviews = $this->findMerchantReviews($idMerchant, $this->getCurrentRequest());
+        $merchantReviews = $this->findMerchantReviews($idMerchant);
         $ratingAggregationTransfer = (new RatingAggregationTransfer());
         $ratingAggregationTransfer->setRatingAggregation($merchantReviews['ratingAggregation']);
         $this->addParameter(static::PARAM_ID_MERCHANT, $idMerchant)
@@ -142,15 +142,18 @@ class MerchantReviewWidget extends AbstractWidget
 
     /**
      * @param int $idMerchant
-     * @param \Symfony\Component\HttpFoundation\Request $parentRequest
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function findMerchantReviews(int $idMerchant, Request $parentRequest): array
+    protected function findMerchantReviews(int $idMerchant): array
     {
+        $currentRequest = $this->getCurrentRequest();
         $merchantReviewSearchRequestTransfer = new MerchantReviewSearchRequestTransfer();
         $merchantReviewSearchRequestTransfer->setIdMerchant($idMerchant);
-        $merchantReviewSearchRequestTransfer->setRequestParams($parentRequest->query->all());
+
+        if ($currentRequest) {
+            $merchantReviewSearchRequestTransfer->setRequestParams($currentRequest->query->all());
+        }
 
         return $this->getFactory()
             ->getMerchantReviewSearchClient()
