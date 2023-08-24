@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints\Range;
 class MerchantReviewForm extends AbstractType
 {
     /**
-     * @var string
+     * @var int
      */
     protected const UNSELECTED_RATING = -1;
 
