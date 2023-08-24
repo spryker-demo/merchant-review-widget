@@ -21,12 +21,12 @@ class CreateController extends AbstractController
     /**
      * @var string
      */
-    public const REQUEST_HEADER_REFERER = 'referer';
+    protected const REQUEST_HEADER_REFERER = 'referer';
 
     /**
      * @var string
      */
-    public const URL_MAIN = '/';
+    protected const URL_MAIN = '/';
 
     /**
      * @var string

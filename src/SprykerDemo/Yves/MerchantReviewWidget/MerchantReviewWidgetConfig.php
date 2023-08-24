@@ -24,6 +24,13 @@ class MerchantReviewWidgetConfig extends AbstractBundleConfig
     public const MERCHANT_REVIEW_MAXIMUM_RATING = 5;
 
     /**
+     * @var int
+     *
+     * @uses \SprykerDemo\Shared\MerchantReview\MerchantReviewConfig::MERCHANT_REVIEW_MINIMUM_RATING
+     */
+    public const MERCHANT_REVIEW_MINIMUM_RATING = 1;
+
+    /**
      * @api
      *
      * @return string

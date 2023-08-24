@@ -15,10 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * @method \SprykerDemo\Yves\MerchantReviewWidget\MerchantReviewWidgetFactory getFactory()
@@ -26,17 +25,10 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class MerchantReviewForm extends AbstractType
 {
-    public const FIELD_RATING = MerchantReviewRequestTransfer::RATING;
-
-    public const FIELD_SUMMARY = MerchantReviewRequestTransfer::SUMMARY;
-
-    public const FIELD_DESCRIPTION = MerchantReviewRequestTransfer::DESCRIPTION;
-
-    public const FIELD_NICKNAME = MerchantReviewRequestTransfer::NICKNAME;
-
-    public const FIELD_MERCHANT = MerchantReviewRequestTransfer::ID_MERCHANT;
-
-    public const UNSELECTED_RATING = -1;
+    /**
+     * @var string
+     */
+    protected const UNSELECTED_RATING = -1;
 
     /**
      * @var string
@@ -52,11 +44,6 @@ class MerchantReviewForm extends AbstractType
      * @var string
      */
     protected const GLOSSARY_KEY_NOT_BLANC_DESCRIPTION_RATING_VALIDATION_MESSAGE = 'merchant_review.error.no_blank_description';
-
-    /**
-     * @var int
-     */
-    public const MINIMUM_RATING = 1;
 
     /**
      * @var string
@@ -97,7 +84,7 @@ class MerchantReviewForm extends AbstractType
     protected function addRatingField(FormBuilderInterface $builder)
     {
         $builder->add(
-            static::FIELD_RATING,
+            MerchantReviewRequestTransfer::RATING,
             ChoiceType::class,
             [
                 'choices' => array_flip($this->getRatingFieldChoices()),
@@ -106,8 +93,7 @@ class MerchantReviewForm extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'constraints' => [
-                    new GreaterThanOrEqual(['value' => static::MINIMUM_RATING]),
-                    new LessThanOrEqual(['value' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING]),
+                    new Range(['min' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MINIMUM_RATING, 'max' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING]),
                 ],
                 'invalid_message' => $this->getConfig()->getInvalidRatingValidationMessageGlossaryKey(),
             ],
@@ -121,8 +107,8 @@ class MerchantReviewForm extends AbstractType
      * - keys match values
      *
      * @see MerchantReviewForm::UNSELECTED_RATING
-     * @see MerchantReviewForm::MINIMUM_RATING
-     * @see MerchantReviewClientInterface::getMaximumRating()
+     * @see MerchantReviewWidgetConfig::MERCHANT_REVIEW_MINIMUM_RATING
+     * @see MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING
      *
      * Example
      *  [-1 => 'none', 1 => 1, 2 => 2]
@@ -131,7 +117,7 @@ class MerchantReviewForm extends AbstractType
      */
     protected function getRatingFieldChoices(): array
     {
-        $choiceKeys = $choiceValues = range(static::MINIMUM_RATING, MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING);
+        $choiceKeys = $choiceValues = range(MerchantReviewWidgetConfig::MERCHANT_REVIEW_MINIMUM_RATING, MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING);
         array_unshift($choiceKeys, static::UNSELECTED_RATING);
         array_unshift($choiceValues, 'merchant_review.submit.rating.none');
 
@@ -146,7 +132,7 @@ class MerchantReviewForm extends AbstractType
     protected function addSummaryField(FormBuilderInterface $builder)
     {
         $builder->add(
-            static::FIELD_SUMMARY,
+            MerchantReviewRequestTransfer::SUMMARY,
             TextType::class,
             [
                 'label' => 'merchant_review.submit.summary',
@@ -169,7 +155,7 @@ class MerchantReviewForm extends AbstractType
     protected function addDescriptionField(FormBuilderInterface $builder)
     {
         $builder->add(
-            static::FIELD_DESCRIPTION,
+            MerchantReviewRequestTransfer::DESCRIPTION,
             TextareaType::class,
             [
                 'label' => 'merchant_review.submit.description',
@@ -195,7 +181,7 @@ class MerchantReviewForm extends AbstractType
     protected function addNicknameField(FormBuilderInterface $builder)
     {
         $builder->add(
-            static::FIELD_NICKNAME,
+            MerchantReviewRequestTransfer::NICKNAME,
             TextType::class,
             [
                 'label' => 'merchant_review.submit.nickname',
@@ -218,7 +204,7 @@ class MerchantReviewForm extends AbstractType
     protected function addMerchantField(FormBuilderInterface $builder)
     {
         $builder->add(
-            static::FIELD_MERCHANT,
+            MerchantReviewRequestTransfer::ID_MERCHANT,
             HiddenType::class,
             [
                 'required' => true,
