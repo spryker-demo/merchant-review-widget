@@ -44,8 +44,6 @@ class MerchantReviewWidgetDependencyProvider extends AbstractBundleDependencyPro
      */
     public function provideDependencies(Container $container)
     {
-        $container = parent::provideDependencies($container);
-
         $container = $this->addCustomerClient($container);
         $container = $this->addMerchantReviewClient($container);
         $container = $this->addMerchantReviewService($container);

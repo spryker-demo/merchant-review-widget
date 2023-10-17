@@ -67,7 +67,7 @@ class IndexController extends AbstractController
      */
     protected function executeIndexAction(Request $request): array
     {
-        $idMerchant = $request->attributes->get('idMerchant');
+        $idMerchant = $request->attributes->get(static::PARAM_ID_MERCHANT);
         $parentRequest = $this->resolveParentRequest();
 
         $customer = $this->getFactory()->getCustomerClient()->getCustomer();

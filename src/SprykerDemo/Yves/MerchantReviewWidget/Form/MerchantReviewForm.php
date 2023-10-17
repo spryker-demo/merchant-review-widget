@@ -66,8 +66,7 @@ class MerchantReviewForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this
-            ->addRatingField($builder)
+        $this->addRatingField($builder)
             ->addNicknameField($builder)
             ->addSummaryField($builder)
             ->addDescriptionField($builder)
