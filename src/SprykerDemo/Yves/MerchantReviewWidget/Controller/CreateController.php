@@ -64,7 +64,7 @@ class CreateController extends AbstractController
     {
         $idMerchant = $request->attributes->get(static::PARAM_ID_MERCHANT);
         $form = $this->getFactory()
-            ->createMerchantReviewForm($idMerchant)
+            ->getMerchantReviewForm($idMerchant)
             ->handleRequest($request);
 
         if (!$form->isSubmitted()) {

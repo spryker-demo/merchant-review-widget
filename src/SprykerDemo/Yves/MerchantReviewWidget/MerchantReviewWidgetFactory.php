@@ -52,7 +52,7 @@ class MerchantReviewWidgetFactory extends AbstractFactory
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createMerchantReviewForm(int $idMerchant): FormInterface
+    public function getMerchantReviewForm(int $idMerchant): FormInterface
     {
         $dataProvider = $this->createMerchantReviewFormDataProvider();
         $form = $this->getFormFactory()->create(

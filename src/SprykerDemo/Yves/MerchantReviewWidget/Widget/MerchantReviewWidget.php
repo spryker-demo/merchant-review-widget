@@ -110,7 +110,7 @@ class MerchantReviewWidget extends AbstractWidget
         $request = $this->getCurrentRequest();
 
         return $this->getFactory()
-            ->createMerchantReviewForm($idMerchant)
+            ->getMerchantReviewForm($idMerchant)
             ->handleRequest($request);
     }
 
