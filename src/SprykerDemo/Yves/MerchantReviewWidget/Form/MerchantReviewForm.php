@@ -48,6 +48,11 @@ class MerchantReviewForm extends AbstractType
     /**
      * @var string
      */
+    protected const GLOSSARY_KEY_INVALID_RATING_VALIDATION_MESSAGE = 'merchant_review.error.invalid_rating';
+
+    /**
+     * @var string
+     */
     protected const VALIDATION_RATING_MESSAGE = 'validation.choice';
 
     /**
@@ -94,7 +99,7 @@ class MerchantReviewForm extends AbstractType
                 'constraints' => [
                     new Range(['min' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MINIMUM_RATING, 'max' => MerchantReviewWidgetConfig::MERCHANT_REVIEW_MAXIMUM_RATING]),
                 ],
-                'invalid_message' => $this->getConfig()->getInvalidRatingValidationMessageGlossaryKey(),
+                'invalid_message' => static::GLOSSARY_KEY_INVALID_RATING_VALIDATION_MESSAGE,
             ],
         );
 

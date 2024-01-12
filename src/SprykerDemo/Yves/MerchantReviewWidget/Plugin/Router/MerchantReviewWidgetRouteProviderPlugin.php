@@ -13,8 +13,6 @@ use Spryker\Yves\Router\Route\RouteCollection;
 class MerchantReviewWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
 {
     /**
-     * @deprecated Use {@link \SprykerDemo\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_INDEX} instead.
-     *
      * @var string
      */
     protected const ROUTE_MERCHANT_REVIEW_INDEX = 'merchant-review/index';
@@ -25,8 +23,6 @@ class MerchantReviewWidgetRouteProviderPlugin extends AbstractRouteProviderPlugi
     public const ROUTE_NAME_MERCHANT_REVIEW_INDEX = 'merchant-review/index';
 
     /**
-     * @deprecated Use {@link \SprykerDemo\Yves\MerchantReviewWidget\Plugin\Router\MerchantReviewWidgetRouteProviderPlugin::ROUTE_NAME_MERCHANT_REVIEW_CREATE} instead.
-     *
      * @var string
      */
     protected const ROUTE_MERCHANT_REVIEW_CREATE = 'merchant-review/create';
