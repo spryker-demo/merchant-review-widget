@@ -24,7 +24,7 @@
 } %}
 
 {% block body %}
-    <h2 class="title spacing-bottom">{{ 'merchant_review.summary.title' | trans }} <span class="is-hidden-lg-xxl">({{ data.summary.totalReview }})</span></h2>
+    <h2 class="title spacing-bottom">{{ 'merchant_review.summary.title' | trans }} <span class="is-hidden-lg-xxl">({{ data.summary.totalReviews }})</span></h2>
 
     <div class="grid grid--justify grid--gap">
         <div class="col col--sm-12 col--lg-6 col--xl-5">
@@ -111,12 +111,12 @@
         </div>
 
         <div class="col col--sm-12 col--lg-6">
-            <h3 class="title title--review-subtitle">{{ 'merchant_review.merchant_reviews' | trans }} <span class="is-hidden-lg-xxl">({{ data.summary.totalReview }})</span></h3>
+            <h3 class="title title--review-subtitle">{{ 'merchant_review.merchant_reviews' | trans }} <span class="is-hidden-lg-xxl">({{ data.summary.totalReviews }})</span></h3>
 
             {% if data.reviews is empty %}
                 <div class="{{ config.name }}__no-review">{{ 'merchant_review.no_reviews' | trans }}</div>
             {% else %}
-                {% if data.summary.totalReview > 0 %}
+                {% if data.summary.totalReviews > 0 %}
                     {% for review in data.reviews %}
                         {% include molecule('merchant-review', 'MerchantReviewWidget') with {
                             data: {

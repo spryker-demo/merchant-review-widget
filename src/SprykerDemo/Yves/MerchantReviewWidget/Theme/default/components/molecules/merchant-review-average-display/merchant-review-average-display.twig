@@ -23,7 +23,7 @@
 
     <meta itemprop="ratingValue" content="{{ data.summary.averageRating }}">
     <meta itemprop="bestRating" content="{{ data.summary.maximumRating }}">
-    <meta itemprop="reviewCount" content="{{ data.summary.totalReview }}">
+    <meta itemprop="reviewCount" content="{{ data.summary.totalReviews }}">
 
     {% include molecule('merchant-rating-selector', 'MerchantReviewWidget') with {
         modifiers: ['merchant-page'],
@@ -38,11 +38,11 @@
         },
     } only %}
 
-    {% if data.summary.totalReview > 0 %}
+    {% if data.summary.totalReviews > 0 %}
         <div class="{{ config.name }}__total-review">
-            {{- data.summary.totalReview }}
+            {{- data.summary.totalReviews }}
 
-            {% set amount = data.summary.totalReview > 1 ? 'multiple' : data.summary.totalReview %}
+            {% set amount = data.summary.totalReviews > 1 ? 'multiple' : data.summary.totalReviews %}
 
             {{ amount | trans({
                 '1' : 'merchant_review.summary.review' | trans,
