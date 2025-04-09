@@ -4,7 +4,7 @@
     "description": "MerchantReviewWidget module",
     "license": "proprietary",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.2",
         "spryker-demo/merchant-review": "^1.0.0",
         "spryker-demo/merchant-review-search": "^1.0.0",
         "spryker-shop/shop-application": "^1.13.0",
